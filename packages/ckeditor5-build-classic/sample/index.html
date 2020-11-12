@@ -1,41 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>CKEditor 5 – classic editor build – development sample</title>
 	<style>
 		body {
-			max-width: 800px;
+			max-width: 1000px;
 			margin: 20px auto;
 		}
 	</style>
 </head>
+
 <body>
 
-<h1>CKEditor 5 – classic editor build – development sample</h1>
+	<h1>Ejemplo Editor HTML</h1>
 
-<div id="editor">
-	<h2>Sample</h2>
+	<div id="editor">
 
-	<p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#classic-editor">classic editor build</a>.</p>
+	</div>
+	<div id="word-count"></div>
 
-	<figure class="image">
-		<img src="../tests/manual/sample.jpg" alt="Autumn fields" />
-	</figure>
+	<script src="../build/ckeditor.js"></script>
+	<script>
+		ClassicEditor.create(document.querySelector('#editor'), {
+			// toolbar: [ 'htmlEmbed' ],
+			htmlEmbed: {
+				showPreviews: true,
+				/* sanitizeHtml: ( inputHtml ) => {
+					// Strip unsafe elements and attributes, e.g.:
+					// the `<script>` elements and `on*` attributes.
+					const outputHtml = sanitize( inputHtml );
+	
+					return {
+						html: outputHtml,
+						// true or false depending on whether the sanitizer stripped anything.
+						hasChanged: true
+					};
+				} */
+			},
+			fontSize: {
+				options: [
+					9,
+					11,
+					12,
+					14,
+					16
+				]
+			},
+			image: {
+				// Configure the available styles.
+				styles: [
+					'alignLeft', 'alignCenter', 'alignRight'
+				],
 
-	<p>You can use this sample to validate whether your <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>
-</div>
+				// Configure the available image resize options.
+				resizeOptions: [
+					{
+						name: 'imageResize:original',
+						label: 'Original',
+						value: null
+					},
+					{
+						name: 'imageResize:25',
+						label: '25%',
+						value: '25'
+					},
+					{
+						name: 'imageResize:50',
+						label: '50%',
+						value: '50'
+					},
+					{
+						name: 'imageResize:75',
+						label: '75%',
+						value: '75'
+					}
+				],
 
-<script src="../build/ckeditor.js"></script>
-<script>
-	ClassicEditor.create( document.querySelector( '#editor' ) )
-		.then( editor => {
-			window.editor = editor;
-		} )
-		.catch( error => {
-			console.error( 'There was a problem initializing the editor.', error );
-		} );
-</script>
+				// You need to configure the image toolbar, too, so it shows the new style
+				// buttons as well as the resize buttons.
+				toolbar: [
+					'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+					'|',
+					'imageResize',
+					'|',
+					'imageTextAlternative',
+					'|',
+					'linkImage'
+				]
+			}
+		})
+			.then(editor => {
+				window.editor = editor;
+
+				/* const wordCountPlugin = editor.plugins.get('WordCount');
+				const wordCountWrapper = document.getElementById('word-count');
+
+				wordCountWrapper.appendChild(wordCountPlugin.wordCountContainer); */
+				
+				editor.plugins.get('WordCount').on('update', (evt, stats) => {
+					// Prints the current content statistics.
+					// console.log(`Characters: ${stats.characters}\nWords:      ${stats.words}`);
+				});
+			})
+			.catch(error => {
+				console.error('There was a problem initializing the editor.', error);
+			});
+	</script>
 
 </body>
+
 </html>

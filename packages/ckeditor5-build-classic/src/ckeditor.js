@@ -19,7 +19,7 @@ import Image from '@ckeditor/ckeditor5-image/src/image';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
-import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
+// import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
@@ -31,6 +31,15 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 
 import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import Font from '@ckeditor/ckeditor5-font/src/font';
+import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage';
+import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat';
+import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
+
 
 
 export default class ClassicEditor extends ClassicEditorBase {}
@@ -50,7 +59,10 @@ ClassicEditor.builtinPlugins = [
 	ImageCaption,
 	ImageStyle,
 	ImageToolbar,
-	ImageUpload,
+	ImageResize,
+	// ImageUpload,
+	ImageInsert,
+	LinkImage,
 	Indent,
 	Link,
 	List,
@@ -60,7 +72,13 @@ ClassicEditor.builtinPlugins = [
 	Table,
 	TableToolbar,
 	TextTransformation,
-	HtmlEmbed
+
+	HtmlEmbed,
+	Alignment,
+	Font,
+	HorizontalLine,
+	RemoveFormat,
+	WordCount
 ];
 
 // Editor configuration.
@@ -69,29 +87,48 @@ ClassicEditor.defaultConfig = {
 		items: [
 			'heading',
 			'|',
+			'fontFamily',
+			'fontSize',
+			'fontColor',
+			'|',
+			'alignment',
 			'bold',
 			'italic',
 			'link',
+			'|',
 			'bulletedList',
 			'numberedList',
 			'|',
-			'indent',
-			'outdent',
+			'horizontalLine',
 			'|',
-			'imageUpload',
-			'blockQuote',
+			'link',
+			// 'indent',
+			// 'outdent',
+			'|',
+			// 'imageUpload',
+			'imageInsert',
+			// 'imageTextAlternative',
+			'|',
 			'insertTable',
+			'|',
 			'mediaEmbed',
+			'|',
+			'blockQuote',
 			'undo',
 			'redo',
+			'removeFormat',
 			'|',
 			'htmlEmbed'
 		]
 	},
 	image: {
 		toolbar: [
+			'imageTextToolbar',
 			'imageStyle:full',
 			'imageStyle:side',
+			'imageCaption',
+			'imageStyle',
+			'imageResize',
 			'|',
 			'imageTextAlternative'
 		]
@@ -104,5 +141,5 @@ ClassicEditor.defaultConfig = {
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'es'
 };
